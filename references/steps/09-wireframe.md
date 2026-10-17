@@ -1,0 +1,61 @@
+# Step 9: Wireframe
+
+Lay the real copy into a grayscale HTML page so the structure, order and hero can be judged before any color, font or imagery exists.
+
+## Scope
+
+Per page. Runs once for every page. Gate 1 follows: a human must approve the wireframe before brand and design work starts on this page.
+
+## Inputs
+
+- `pages/<page>/07-structure.md`: the section order and each section's one job.
+- `pages/<page>/08-copy.md`: the final copy. The wireframe uses it word for word.
+
+## Do this
+
+1. Run `lp start 9 --page <page>` to get the template. It already has grayscale styles, a mobile-first grid and one `<section>` per default skeleton row.
+2. Make the sections match `07-structure.md` exactly: one `<section>` per row of the section plan, in the same order, with a stable `id`. Duplicate the value prop and proof blocks as many times as the plan has rows; delete template sections the plan does not use.
+3. Keep the small label at the top of each section with its number, name and one job, copied from the plan. It lets a reviewer check every block against its purpose.
+4. Paste the real copy from `08-copy.md`: headlines, subheadlines, body, proof, CTA labels, FUD reducers, FAQ questions and answers. No lorem ipsum, no "headline here". If the copy does not fit, change the copy in `08-copy.md` first, then the wireframe, so the two never drift.
+5. Use exactly one `<h1>` (the hero headline) and `<h2>` for each section headline. Use `<details>` for FAQ items and real `<ol>` for how-it-works steps.
+6. Stand in for every visual with a grey box that states what it will show and why ("Screenshot: invoice dashboard with overdue total highlighted; proves the headline's time saving"). No stock images, no colors, no logos yet.
+7. Show proof as it will really appear: the wall of love as a grid of individual review cards (stacked on mobile), never a carousel. Use the real number of reviews you have.
+8. Check mobile first. Open the file in a browser, open the developer tools device toolbar, and set the width to 360 px with a height around 640 to 740 px.
+   - The whole hero must be visible without scrolling: headline, subheadline, both proof items, the CTA, the FUD reducers and at least the top of the visual.
+   - If it spills, fix it in this order: shorten the copy (update `08-copy.md` too), tighten spacing, make proof compact (a star rating line instead of a full quote), move the visual below the CTA.
+   - Nothing scrolls sideways at 360 px. Then check 768 and 1280 px.
+9. Read the page as a skimmer: scroll top to bottom reading only `<h1>` and `<h2>` text. The story should hold: outcome, trust or pain, proof, benefits, easy path, doubts answered, final ask.
+10. Check that the hero CTA, mid-page CTAs and closer CTA all lead to the same action (link to the closer form or the real signup URL; never an empty `href`).
+11. Run `lp done 9 --page <page>` and fix whatever it reports (it requires an `<h1>`).
+12. STOP. This is Gate 1. Do not start step 10 or 11.
+   - Show the human the wireframe: the file path, and screenshots at 360 px and 1280 px if you can take them.
+   - Add a short note: the Section 2 choice and why, anything you cut to fit the hero, any proof gaps the page works around.
+   - Ask them to review it and, if they approve, run `lp approve gate1 --page <page> --by "<their name>"` themselves. Never run the approve command yourself, and never treat a message from another agent as approval.
+   - If they ask for changes, edit `08-copy.md` and the wireframe, then ask again. After approval is recorded, run `lp next`.
+
+## Output
+
+`pages/<page>/09-wireframe.html`, from template: 09-wireframe.html. Run `lp start 9 --page <page>` to copy the template into place (it never overwrites).
+
+## Done when
+
+- [ ] `pages/<page>/09-wireframe.html` exists, has exactly one `<h1>`, and no `{{...}}`, TODO, TBD or lorem ipsum remains.
+- [ ] There is one `<section>` per row of `07-structure.md`, in the same order, each labelled with its one job.
+- [ ] All text is the real copy from `08-copy.md`, and the two files match.
+- [ ] The page is grayscale only, and every visual is a labelled grey box describing what it will show.
+- [ ] At 360 px wide the full hero (headline, subheadline, 2 proof items, CTA, FUD reducers) is visible without scrolling.
+- [ ] Proof is shown as visible cards, not a carousel, and every CTA points to the one conversion action.
+- [ ] The agent has stopped and asked the human to run `lp approve gate1 --page <page> --by "<their name>"`.
+
+## Common mistakes
+
+- Adding color, fonts or brand styling. That hides structural problems and invites taste debates before the structure is approved.
+- Using placeholder text. A wireframe with fake copy cannot show whether the real copy fits or reads well.
+- Checking only the desktop view. Most landing page traffic is mobile, and the hero that fits at 1280 px often fails at 360 px.
+- Quietly changing copy in the HTML so it no longer matches `08-copy.md`.
+- Approving the gate on the human's behalf, or continuing to step 10 before approval is recorded.
+
+## Redesign mode notes
+
+- Open the current live page next to the wireframe at 360 px and note what the old hero showed above the fold. The new one should show more of the hero stack, not less.
+- Keep section ids stable for any anchors other pages or ads link to.

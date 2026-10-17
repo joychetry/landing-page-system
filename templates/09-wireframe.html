@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe: {{page slug}}</title>
+<!-- Step 9. Guide: steps/09-wireframe.md.
+     Grayscale only. Real copy from 08-copy.md, never lorem ipsum. Replace every {{...}}.
+     One <section> per row in 07-structure.md, in the same order. Grey boxes stand in for visuals; label what each will show. -->
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; color: #222; background: #fff; }
+  section { padding: 48px 20px; border-bottom: 1px dashed #bbb; }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  .label { font: 12px/1 monospace; text-transform: uppercase; color: #777; margin-bottom: 12px; }
+  .grid { display: grid; gap: 24px; }
+  @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+  .box { background: #e6e6e6; border: 1px solid #ccc; min-height: 160px; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; color: #555; }
+  .btn { display: inline-block; padding: 14px 22px; min-height: 44px; background: #444; color: #fff; text-decoration: none; }
+  .proof { background: #f3f3f3; padding: 12px; }
+  h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; margin: 0 0 16px; }
+  h2 { font-size: clamp(22px, 3.5vw, 32px); margin: 0 0 16px; }
+</style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="wrap grid grid-2">
+    <div>
+      <div class="label">1. Hero: land the dream outcome, get the click</div>
+      <h1>{{Hero headline from 08-copy.md}}</h1>
+      <p>{{Subheadline}}</p>
+      <div class="grid grid-2">
+        <div class="proof">{{Proof 1}}</div>
+        <div class="proof">{{Proof 2}}</div>
+      </div>
+      <p><a class="btn" href="#closer">{{CTA button}}</a></p>
+      <p>{{FUD reducers}}</p>
+    </div>
+    <div class="box">{{Visual: what it shows and why}}</div>
+  </div>
+</section>
+
+<section id="section-2">
+  <div class="wrap">
+    <div class="label">2. {{Social proof or Pain point}}: {{its one job}}</div>
+    <h2>{{Section 2 headline}}</h2>
+    <p>{{Section 2 copy}}</p>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="label">3. Proof: {{its one job}}</div>
+    <h2>{{Benefit-led proof headline}}</h2>
+    <div class="grid grid-3">
+      <div class="proof">{{Testimonial or stat, exact, with attribution}}</div>
+    </div>
+  </div>
+</section>
+
+<section id="value-1">
+  <div class="wrap grid grid-2">
+    <div>
+      <div class="label">4. Value prop 1: {{its one job}}</div>
+      <h2>{{Value prop headline}}</h2>
+      <p>{{Supporting copy}}</p>
+    </div>
+    <div class="box">{{Visual that explains this value prop}}</div>
+  </div>
+</section>
+
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="label">5. How it works: make the path feel easy</div>
+    <h2>{{How it works headline}}</h2>
+    <ol>
+      <li>{{Step 1}}</li>
+    </ol>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="label">6. FAQ and FUD reducers: remove the last doubts</div>
+    <h2>{{FAQ headline}}</h2>
+    <details><summary>{{Question}}</summary><p>{{Answer}}</p></details>
+  </div>
+</section>
+
+<section id="closer">
+  <div class="wrap grid grid-2">
+    <div>
+      <div class="label">7. Closer: mini hero, final CTA</div>
+      <h2>{{Closer headline}}</h2>
+      <p>{{Closer subheadline}}</p>
+      <div class="proof">{{Proof}}</div>
+    </div>
+    <div class="box">{{Form fields or pricing}}<br><a class="btn" href="#closer">{{CTA button}}</a></div>
+  </div>
+</section>
+
+</body>
+</html>

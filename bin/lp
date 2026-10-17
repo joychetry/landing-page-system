@@ -1,0 +1,70 @@
+#!/bin/sh
+# lp: POSIX sh wrapper for the landing-page-system CLI (scripts/lp.py).
+# Finds lp.py in this order: next to this script (../scripts/lp.py, symlinks resolved),
+# $LP_SKILL_HOME, the conventional skill install dirs, then a workspace's vendored .lp/lp.py
+# found by walking up from the current directory.
+
+# Portable readlink -f: macOS without GNU readlink has no -f.
+resolve() {
+  target=$1
+  n=0
+  while [ -L "$target" ] && [ "$n" -lt 40 ]; do
+    link=$(readlink "$target") || break
+    case $link in
+      /*) target=$link ;;
+      *) target=$(dirname "$target")/$link ;;
+    esac
+    n=$((n + 1))
+  done
+  dir=$(cd -P "$(dirname "$target")" 2>/dev/null && pwd) || return 1
+  printf '%s/%s\n' "$dir" "$(basename "$target")"
+}
+
+pick_python() {
+  for py in python3 python; do
+    if command -v "$py" >/dev/null 2>&1 &&
+      "$py" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 8) else 1)' 2>/dev/null; then
+      printf '%s\n' "$py"
+      return 0
+    fi
+  done
+  return 1
+}
+
+find_lp() {
+  case $0 in
+    */*) self=$0 ;;
+    *) self=$(command -v -- "$0" 2>/dev/null) ;;
+  esac
+  if [ -n "$self" ] && real=$(resolve "$self"); then
+    cand=$(dirname "$(dirname "$real")")/scripts/lp.py
+    [ -f "$cand" ] && { printf '%s\n' "$cand"; return 0; }
+  fi
+  if [ -n "${LP_SKILL_HOME:-}" ] && [ -f "$LP_SKILL_HOME/scripts/lp.py" ]; then
+    printf '%s\n' "$LP_SKILL_HOME/scripts/lp.py"
+    return 0
+  fi
+  for base in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.pi/agent/skills" \
+    "$HOME/.config/opencode/skills" "$HOME/.gemini/skills" "$HOME/.factory/skills" "$HOME/.cursor/skills"; do
+    cand=$base/landing-page-system/scripts/lp.py
+    [ -f "$cand" ] && { printf '%s\n' "$cand"; return 0; }
+  done
+  d=$(pwd)
+  while :; do
+    [ -f "$d/.lp/lp.py" ] && { printf '%s\n' "$d/.lp/lp.py"; return 0; }
+    [ "$d" = "/" ] && break
+    d=$(dirname "$d")
+  done
+  return 1
+}
+
+if ! LP_PY=$(find_lp); then
+  echo "lp: cannot find lp.py. Install the landing-page-system skill (./install.sh), set LP_SKILL_HOME" \
+    "to the skill folder, or run this inside a workspace that has .lp/lp.py." >&2
+  exit 127
+fi
+if ! PY=$(pick_python); then
+  echo "lp: Python 3.8 or newer is required (tried python3 and python)." >&2
+  exit 127
+fi
+exec "$PY" "$LP_PY" "$@"

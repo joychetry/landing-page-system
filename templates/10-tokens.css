@@ -1,0 +1,42 @@
+/* Brand tokens: {{Product name}}
+   Step 10. Guide: steps/10-brand-guidelines.md. Product-level, shared by every page.
+   Replace every {{...}} with a real value that matches brand/brand.md. */
+
+:root {
+  /* Color */
+  --color-bg: {{#ffffff}};
+  --color-surface: {{#f5f5f5}};
+  --color-text: {{#1a1a1a}};
+  --color-muted: {{#555555}};
+  --color-primary: {{#0055ff}};
+  --color-primary-text: {{#ffffff}};
+  --color-accent: {{#ffcc00}};
+  --color-border: {{#dddddd}};
+
+  /* Type */
+  --font-heading: {{"Brand Sans", system-ui, sans-serif}};
+  --font-body: {{system-ui, sans-serif}};
+  --text-base: {{1rem}};
+  --text-h1: {{clamp(2rem, 5vw, 3.5rem)}};
+  --text-h2: {{clamp(1.5rem, 3.5vw, 2.25rem)}};
+  --leading-tight: {{1.1}};
+  --leading-body: {{1.6}};
+
+  /* Space and layout */
+  --space-1: {{0.25rem}};
+  --space-2: {{0.5rem}};
+  --space-3: {{1rem}};
+  --space-4: {{1.5rem}};
+  --space-5: {{2.5rem}};
+  --space-6: {{4rem}};
+  --max-width: {{72rem}};
+  --radius: {{0.5rem}};
+
+  /* Motion */
+  --ease: {{cubic-bezier(0.2, 0.7, 0.2, 1)}};
+  --duration: {{200ms}};
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration: 0ms; }
+}
