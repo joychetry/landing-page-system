@@ -47,7 +47,7 @@ for layout in .agents/skills .claude/skills .codex/skills .pi/agent/skills .conf
   for wrapper in "$SK/bin/lp" "$H/bin/lp"; do
     tag="$layout via ${wrapper#$H/}"
     check "$tag: lp --help" clean "$H" "$H/work" sh "$wrapper" --help
-    check "$tag: lp --version" sh -c "env -i HOME='$H' PATH='$CLEAN_PATH' sh '$wrapper' --version | grep -q 1.0.0"
+    check "$tag: lp --version" sh -c "env -i HOME='$H' PATH='$CLEAN_PATH' sh '$wrapper' --version | grep -q 1.1.0"
   done
   check "$layout: lp init" clean "$H" "$H/work" sh "$H/bin/lp" init "Port Test"
   check "$layout: workspace has vendored .lp/lp.py" test -f "$H/work/port-test/.lp/lp.py"
@@ -84,13 +84,13 @@ H=$TMP/home-env
 mkdir -p "$H/bin" "$H/work"
 cp "$ROOT/bin/lp" "$H/bin/lp"
 check "LP_SKILL_HOME: wrapper uses it" sh -c "cd '$H/work' && env -i HOME='$H' PATH='$CLEAN_PATH' \
-  LP_SKILL_HOME='$ROOT' sh '$H/bin/lp' --version | grep -q 1.0.0"
+  LP_SKILL_HOME='$ROOT' sh '$H/bin/lp' --version | grep -q 1.1.0"
 
 # Wrapper reached through a symlink (how install.sh puts it on PATH).
 mkdir -p "$TMP/linkbin"
 ln -s "$ROOT/bin/lp" "$TMP/linkbin/lp"
 check "symlinked wrapper resolves its real location" sh -c "cd '$TMP' && env -i HOME='$TMP/nohome' \
-  PATH='$TMP/linkbin:$CLEAN_PATH' lp --version | grep -q 1.0.0"
+  PATH='$TMP/linkbin:$CLEAN_PATH' lp --version | grep -q 1.1.0"
 
 # install.sh in a fake HOME.
 H=$TMP/home-install
@@ -102,7 +102,7 @@ check "install.sh linked existing ~/.claude" test -L "$H/.claude/skills/landing-
 check "install.sh linked existing ~/.codex" test -L "$H/.codex/skills/landing-page-system"
 check "install.sh skipped missing ~/.gemini" test ! -e "$H/.gemini"
 check "install.sh linked lp on PATH" test -L "$H/.local/bin/lp"
-check "installed lp runs" sh -c "env -i HOME='$H' PATH='$H/.local/bin:$CLEAN_PATH' lp --version | grep -q 1.0.0"
+check "installed lp runs" sh -c "env -i HOME='$H' PATH='$H/.local/bin:$CLEAN_PATH' lp --version | grep -q 1.1.0"
 check "install.sh is idempotent" sh -c "env -i HOME='$H' PATH='$H/.local/bin:$CLEAN_PATH' sh '$ROOT/install.sh' \
   | grep -q 'already linked'"
 mkdir -p "$H/.gemini/skills/landing-page-system"

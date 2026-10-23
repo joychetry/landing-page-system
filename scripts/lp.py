@@ -21,7 +21,7 @@ import tempfile
 from html.parser import HTMLParser
 from pathlib import Path
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 SCHEMA = 1
 MANIFEST = "lp.json"
 VENDOR = ".lp"
@@ -92,9 +92,10 @@ STEPS = {
 }
 PRODUCT_STEPS = [0, 1, 2, 3, 4, 5, 6]
 PAGE_STEPS = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-PAGE_FLOW = [7, 8, 9, "gate1", 10, 11, "gate2", 12, 13, 14, "gate3", 15, 16]
-GATES = {"gate1": (9, "wireframe"), "gate2": (11, "final design"), "gate3": (14, "ship and deploy")}
-NEEDS_GATE = {10: "gate1", 11: "gate1", 12: "gate2", 13: "gate2", 14: "gate2", 15: "gate3", 16: "gate3"}
+PAGE_FLOW = [7, "plan", 8, 9, "gate1", 10, 11, "gate2", 12, 13, 14, "gate3", 15, 16]
+GATES = {"plan": (7, "page plan and research summary"), "gate1": (9, "wireframe"),
+         "gate2": (11, "final design"), "gate3": (14, "ship and deploy")}
+NEEDS_GATE = {8: "plan", 9: "plan", 10: "gate1", 11: "gate1", 12: "gate2", 13: "gate2", 14: "gate2", 15: "gate3", 16: "gate3"}
 SOURCED_STEPS = (2, 3, 6)  # guides require 3+ source markers in these research files
 FINISHED = ("done", "skipped", "inherited")
 
@@ -298,7 +299,9 @@ def set_status(m, step, page, status):
 
 
 def approved(m, gate, page):
-    return bool(m["pages"][page]["approvals"].get(gate))
+    a = m["pages"][page]["approvals"]
+    # pages approved at gate1 before the plan gate existed count as plan-approved
+    return bool(a.get(gate) or (gate == "plan" and a.get("gate1")))
 
 
 def research_pending(m):
@@ -309,7 +312,7 @@ def gates_missing(m, step, page):
     need = NEEDS_GATE.get(step)
     if not need:
         return []
-    order = ["gate1", "gate2", "gate3"]
+    order = list(GATES)
     gates = order[:order.index(need) + 1]
     if page is None:  # brand-level step 10: some page must have passed gate 1
         return [] if any(approved(m, "gate1", p) for p in m["pages"]) else ["gate1"]
@@ -1026,7 +1029,7 @@ def cmd_status(args):
         cells = []
         for p in pages:
             a = m["pages"][p]["approvals"].get(g)
-            cells.append("approved by %s" % a["by"] if a else "pending")
+            cells.append("approved by %s" % a["by"] if a else "approved with gate1" if approved(m, g, p) else "pending")
         rows.append([g, "after step %d (%s)" % (after, what), ""] + cells)
     head = ["step", "title", "product"] + pages
     widths = [max(len(r[i]) for r in rows + [head]) for i in range(len(head))]
