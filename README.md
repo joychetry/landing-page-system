@@ -184,7 +184,7 @@ Three points need a person to look at the work before it continues:
 | `gate2` | Step 11 | The final design |
 | `gate3` | Step 14 | Shipping the page to production |
 
-To approve:
+At each gate your agent shows you the work and asks you to choose **Approve** or **Request changes**. In Claude Code that's a clickable prompt; other agents ask in chat. When you approve, the agent records it for you with your name. You can also approve from a terminal:
 
 ```sh
 lp approve gate1 --page home --by "Your Name" --note "Swap sections 3 and 4 first"
@@ -192,7 +192,7 @@ lp approve gate1 --page home --by "Your Name" --note "Swap sections 3 and 4 firs
 
 Until a gate is approved, the CLI won't start the next step, even with `--force`. Reopening an earlier step with `lp redo` revokes the gates that come after it.
 
-> **Note:** the CLI can't tell a human from an agent. Gates are enforced by the tool plus the instructions in `SKILL.md` and `AGENTS.md`, which tell agents never to run `lp approve`. Each approval records who approved and when, so you can check.
+> **Note:** the CLI can't tell a human from an agent. Gates are enforced by the tool plus the instructions in `SKILL.md` and `AGENTS.md`, which tell agents to run `lp approve` only after you choose Approve. Each approval records who approved and when, so you can check.
 
 ## Honesty rules
 
@@ -237,7 +237,7 @@ Every command accepts `--json` (machine-readable output) and `--help`.
 | `lp start N [--page P]` | Mark a step in progress and copy its template. Never overwrites an existing file. |
 | `lp done N [--page P] [--force]` | Validate the step's output and mark it done, or list what's missing. `--force` skips validation, never a gate. |
 | `lp redo N [--page P]` | Reopen a step. For page steps, revokes the gates after it. |
-| `lp approve gate1\|gate2\|gate3 --page P --by NAME [--note TEXT]` | Record a human approval. |
+| `lp approve gate1\|gate2\|gate3 --page P --by NAME [--note TEXT]` | Record a human approval (agents run it only after you choose Approve). |
 | `lp page add <slug> [--keyword K] [--url URL]` | Add a page starting at step 7. Refuses a keyword another page owns. |
 | `lp page list` | Pages, their keywords and their next step. |
 | `lp check [--page P] [FILE...]` | Lint copy and HTML, and check keyword overlap across pages. |

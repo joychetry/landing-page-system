@@ -31,7 +31,7 @@ Per page. Runs once for every page, after Gate 1 is approved and the brand exist
 10. Apply the conversion rules in the layout: proof as a visible wall of cards (stacked on mobile, never a carousel); every value prop shows its benefit headline with a visual that explains that facet; how-it-works steps visibly numbered with benefit headlines; FAQ as simple `<details>` items; the closer as a mini hero with the form or pricing beside the recap.
 11. Get the basics right now so later steps polish rather than rebuild: `<html lang>`, viewport meta, a title and meta description from the SEO copy in `08-copy.md`, `alt` on every image, real `href` values, semantic landmarks, visible focus styles, tap targets of 44 px or more.
 12. Run `lp check --page <page>` and fix errors. Then run `lp done 11 --page <page>` and fix whatever it reports (it requires 2 or more files in `11-design/` and a non-trivial `build/index.html` with an `<h1>`).
-13. STOP. This is Gate 2. Show the human the built page (open `build/index.html` in a browser; share screenshots at 360 and 1280 px if you can). Ask them to review and, if they approve, run `lp approve gate2 --page <page> --by "<their name>"` themselves. Never run the approve command yourself. After approval, run `lp next`.
+13. STOP. This is Gate 2. Show the human the built page (open `build/index.html` in a browser; share screenshots at 360 and 1280 px if you can). Ask them to review and ask them to choose Approve or Request changes (a question or button prompt if your agent has one). Only after they choose Approve, run `lp approve gate2 --page <page> --by "<their name>"` for them. Never approve without their answer. After approval, run `lp next`.
 
 ## Output
 
@@ -48,7 +48,7 @@ No template for this step; create the folders and files directly.
 - [ ] `pages/<page>/build/index.html` has exactly one `<h1>`, every section from `07-structure.md` in order, and copy that matches `08-copy.md`.
 - [ ] All colors, fonts and spacing come from `brand/tokens.css`; no off-brand values.
 - [ ] `lp check --page <page>` reports zero errors.
-- [ ] The agent has stopped and asked the human to run `lp approve gate2 --page <page> --by "<their name>"`.
+- [ ] The agent has stopped, asked the human to Approve or Request changes, and ran `lp approve gate2` only after they chose Approve.
 
 ## Common mistakes
 

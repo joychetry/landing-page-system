@@ -4,7 +4,7 @@ Get on-page SEO, speed and analytics right, then deploy the approved page and co
 
 ## Scope
 
-Per page. Runs once for each page, only after a human has approved Gate 3 for that page with `lp approve gate3`. If Gate 3 is missing, stop and ask the human; do not deploy.
+Per page. Runs once for each page, only after a human has approved Gate 3 for that page (recorded with `lp approve gate3`). If Gate 3 is missing, stop and ask the human; do not deploy.
 
 ## Inputs
 
@@ -17,7 +17,7 @@ Per page. Runs once for each page, only after a human has approved Gate 3 for th
 
 ## Do this
 
-1. Confirm Gate 3 is recorded: run `lp status --page <page>`. If it is not approved, stop and ask the human to review and run `lp approve gate3 --page <page> --by "<their name>"`.
+1. Confirm Gate 3 is recorded: run `lp status --page <page>`. If it is not approved, stop and ask the human to review and choose Approve or Request changes; record it with `lp approve gate3 --page <page> --by "<their name>"` only after they approve.
 2. Set the head tags. Title 50 to 60 characters, primary keyword near the front, brand at the end. Meta description 130 to 155 characters that states the outcome and the next step (it is ad copy for the search result). Exactly one h1 that contains the primary keyword in natural words. A self-referencing canonical with the final absolute URL. Open Graph tags (og:title, og:description, og:image at 1200 by 630, og:url, og:type) and twitter:card set to summary_large_image.
 3. Check the body against references/checklists/seo-onpage.md: secondary keywords and People Also Ask questions from research/06-seo.md answered in headings and FAQ, heading levels in order, descriptive link text, alt text on every meaningful image, and no content hidden in images only.
 4. Add structured data as JSON-LD: Organization (or LocalBusiness) plus the type that fits the offer (Product, SoftwareApplication, Service), and FAQPage only if the FAQ is visible on the page. Never mark up reviews or ratings that are not shown on the page and sourced in research/04-proof.md. Validate with a rich results or schema validator if you can reach one, and confirm `lp check` parses it.
