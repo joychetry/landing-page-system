@@ -44,12 +44,12 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
 11. Use the same CTA action in the hero and the closer. Mid-page CTAs repeat it; they never introduce a second action.
 12. Run `lp done 7 --page <page>` and fix what it reports. Then STOP: this is the plan gate, the first time the human sees the direction before any copy is written.
     - Show a one-screen brief. On the first page, open with the research summary: the one conversion action, the dream outcome, the primary segment and their top pain (in their words), the one-liner from `research/05-brand-story.md`, and the proof gaps that weaken the hero. Then the page plan: primary keyword, traffic temperature, the Section 2 decision and its reason, the section order with each section's one job, and the feature list (headline idea and benefit per feature).
-    - Ask them to choose Approve or Request changes (a question or button prompt if your agent has one (Claude Code: `AskUserQuestion`), otherwise plain text). Only after they choose Approve, run `lp approve plan --page <page> --by "<their name>"`. Never approve without their answer.
+    - Ask them to choose Approve or Request changes (a question or button prompt if your agent has one, such as `AskUserQuestion` in Claude Code, otherwise plain text). Only after they choose Approve, run `lp approve plan --page <page> --by "<their name>"`. Never approve without their answer.
     - If they ask for changes to the research (offer, audience, story), reopen that step with `lp redo N`; changes to the plan go into `07-structure.md`. Then ask again.
 
 ## Output
 
-`pages/<page>/07-structure.md`, from template: 07-structure.md. Run `lp start 7 --page <page>` to copy the template into place (it never overwrites). When finished run `lp done 7 --page <page>`, fix whatever it reports, hold the plan gate (step 12), then `lp next`.
+`pages/<page>/07-structure.md`, from template: 07-structure.md. Run `lp start 7 --page <page>` to copy the template into place (it never overwrites). When finished run `lp done 7 --page <page>`, fix whatever it reports, hold the plan gate (item 12 above), then `lp next`.
 
 ## Done when
 

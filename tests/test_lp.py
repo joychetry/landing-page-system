@@ -270,6 +270,7 @@ class TestFlow(LPTestCase):
         del m["pages"]["home"]["approvals"]["plan"]
         (ws / "lp.json").write_text(json.dumps(m))
         self.assertEqual(self.lp_json("next", cwd=ws)["step"], 10)
+        self.assertIn("approved with gate1", self.run_lp("status", cwd=ws).stdout)
 
     def test_redo_page_step_revokes_later_gates(self):
         ws = self.init()

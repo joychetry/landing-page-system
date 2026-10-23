@@ -29,7 +29,7 @@ second, and this step is where the copy starts: nothing visual is decided here.
    compete visually with the primary CTA. Write why this action and not another, and exactly what
    happens after the click. If the owner wants two actions for two audiences, that is two pages;
    note it under open questions. Confirm the choice with the owner as a decision question (a question or button
-   prompt if your agent has one, Claude Code: `AskUserQuestion`, otherwise plain text):
+   prompt if your agent has one, such as `AskUserQuestion` in Claude Code, otherwise plain text):
    offer the 2 to 4 realistic actions, your recommendation first with one line on why. Record
    their pick with "provided by owner, YYYY-MM-DD". Never pick it for them.
 4. Write the dream outcome: the end result the customer wants, about them and not the product.
