@@ -27,8 +27,14 @@ Per page. Runs once for every page. Copy first, design second: steps 9 to 11 wra
    - Visual brief, one line: it shows the thing they get or the outcome they want, and proves the headline.
 5. Section 2. Social proof version: a benefit-led headline that gives a reason to read ("Join 300 clinics that cut no-shows in half", only with real numbers), then the wall of love: many real reviews shown at once. Pain point version: problem (name the pain in their words and ask if it sounds familiar), agitate (what it costs them in time, money, stress, missed moments), solution (how this offer fixes it, backed by one proof point). For a visual offer, write before and after captions instead.
 6. Proof sections: every headline leads with the benefit the customers got. Never "Our testimonials", "Our reviews", "See what our customers say" or "Real people, real results". Copy testimonials exactly, with name, role or location as permitted; trim only with an ellipsis and never change meaning.
-7. Value props (4 to 8): each headline joins a benefit to the feature that delivers it ("See every shipping fee in one dashboard and stop overpaying"), and is readable on its own. Supporting copy is 1 to 3 sentences of specifics. Test: read only the headlines, top to bottom. If a skimmer would not know what they get and why it matters, rewrite.
-8. How it works: a section headline that sells ("Get a clean lawn in 4 simple steps"), then 3 to 5 steps whose words are benefits or easy actions ("Get your free estimate", "Sit back and enjoy the result"), never bare "Step 1".
+7. Value props (4 to 8, one block per row of `## Feature definitions` in `07-structure.md`): turn each definition into a full feature section.
+   - Headline: joins a benefit to the feature that delivers it ("See every shipping fee in one dashboard and stop overpaying"), readable on its own.
+   - Lead: 2 to 3 sentences saying what the feature does and what changes for the customer.
+   - Details: 3 to 5 bullets of concrete specifics from the definition (how it works, numbers, limits, timing, terms). A reader should be able to explain the feature to someone else after reading them. "Fast", "easy" and "powerful" are not details.
+   - Proof: the row from `research/04-proof.md`, if the definition has one.
+   - Visual: the brief from the definition.
+   Test: read only the headlines, top to bottom. If a skimmer would not know what they get and why it matters, rewrite. Then read only one section's details: if they could describe any competitor's product, they are too vague.
+8. How it works: a section headline that sells ("Get a clean lawn in 4 simple steps"), then 3 to 5 steps whose words are benefits or easy actions ("Get your free estimate", "Sit back and enjoy the result"), never bare "Step 1". Follow each step title with one sentence on what happens and what the customer does.
 9. FAQ: 5 to 8 real questions from the objections in `research/02-customers.md` and the questions assigned in `research/06-seo.md`, in the customer's wording. Answers are short and honest. Surface guarantees, warranties and terms only if they exist; never invent one to fill the slot.
 10. Closer: a mini hero. Recap headline (the dream outcome again, said fresh), subheadline, the same CTA action as the hero, one proof item, and the form (3 to 4 bullets of what happens next, then the fields) or pricing.
 11. SEO copy: title tag of 50 to 60 characters with the primary keyword near the start, meta description of 130 to 155 characters that sells the click, and the H1 (usually the hero headline) containing the primary keyword or its core phrase.
@@ -46,6 +52,7 @@ Per page. Runs once for every page. Copy first, design second: steps 9 to 11 wra
 - [ ] The hero has a dream-outcome headline (never who you are), a how subheadline, 2 proof items, 1 CTA, true FUD reducers and a visual brief.
 - [ ] Reading only the headlines, top to bottom, a stranger can say what they get, how, and what to do next.
 - [ ] Every value prop headline pairs a benefit with a feature, and every proof headline leads with a benefit.
+- [ ] There is one value prop block per feature definition (at least 4), each with a lead, 3 to 5 concrete details, proof and visual, and at least 5 FAQ questions (`lp done 8` checks the counts).
 - [ ] Phrases from the language bank in `research/02-customers.md` appear in the hero and at least two other sections.
 - [ ] Every claim on the page has a row in the Claim trace table; nothing is invented.
 - [ ] Title tag (50 to 60 characters), meta description (130 to 155 characters) and H1 are written with the primary keyword.

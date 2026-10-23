@@ -25,15 +25,23 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
    - Hero: land the dream outcome and get the click.
    - Section 2: social proof or pain point (step 3).
    - Proof: build trust. Plan 2 to 4 proof moments across the page, not one testimonial block. Show proof as a wall of love (many reviews visible at once, stacked one by one on mobile), never a carousel: as an industry rule of thumb only 1 to 2 percent of visitors click past the first slide.
-   - Value props: 4 to 8 sections, each one benefit plus the feature that delivers it. Pull them from the offer facets.
+   - Features (value props): 4 to 8 sections, one feature each, every one its own row in the plan. Never fold several features into one "Value props" row: each needs its own headline, detail and visual. Pull them from the offer facets.
    - How it works: show the path from sign-up to result in 3 to 5 steps so it feels easy.
    - FAQ and FUD reducers: answer real objections, surface guarantees, warranties or cancellation terms that actually exist.
    - Closer: a mini hero with a recap headline, CTA, proof, and the form or pricing.
-6. Write each section's one job as a verb phrase ("prove other dental practices got results", "show setup takes one afternoon"). If a section has two jobs, split it. If two sections share a job, cut one.
-7. Fill the "Content comes from" column with the research file for each section and the "Proof used" column with specific rows from `research/04-proof.md`. Where proof is missing, plan a section that works without it and leave the gap recorded in the proof file; never plan around proof you hope to get.
-8. Place the offer facets. Every facet from `research/01-goal-offer.md` lands in a section and a form: headline, proof badge, value prop, how-it-works step or FAQ answer. Facets that reduce risk (trial, guarantee) belong near CTAs.
-9. Map the questions from `research/06-seo.md` assigned to this page to the section that answers them, usually the FAQ. Put secondary keywords where they fit naturally: a value prop headline, a how-it-works step, an FAQ question.
-10. Use the same CTA action in the hero and the closer. Mid-page CTAs repeat it; they never introduce a second action.
+6. Define every feature section in the `## Feature definitions` table, one row per feature row in the plan. This is the spec the copy and wireframe are built from, so write it as a spec, not a slogan:
+   - What it does: input, action, result in one sentence ("You upload a photo of the leak; the plumber sees it before leaving; the right part is on the van").
+   - How it works: 2 to 4 concrete specifics (numbers, limits, timing, terms, what the customer does and does not have to do).
+   - Pain it removes: in the customer's words from `research/02-customers.md`.
+   - Benefit: the so-what. If you cannot say why a customer cares, it is not a feature section; move it to the FAQ or cut it.
+   - Proof or hard specific: a row from `research/04-proof.md`, or "none" plus the gap recorded there.
+   - Visual: what a screenshot, photo or demo would show to prove this feature, specific enough to brief a designer.
+   Prefer facets typed feature, effort, speed and support; price and risk-reversal facets usually land in the hero, FAQ or closer instead.
+7. Write each section's one job as a verb phrase ("prove other dental practices got results", "show setup takes one afternoon"). If a section has two jobs, split it. If two sections share a job, cut one.
+8. Fill the "Content comes from" column with the research file for each section and the "Proof used" column with specific rows from `research/04-proof.md`. Where proof is missing, plan a section that works without it and leave the gap recorded in the proof file; never plan around proof you hope to get.
+9. Place the offer facets. Every facet from `research/01-goal-offer.md` lands in a section and a form: headline, proof badge, value prop, how-it-works step or FAQ answer. Facets that reduce risk (trial, guarantee) belong near CTAs.
+10. Map the questions from `research/06-seo.md` assigned to this page to the section that answers them, usually the FAQ. Put secondary keywords where they fit naturally: a value prop headline, a how-it-works step, an FAQ question.
+11. Use the same CTA action in the hero and the closer. Mid-page CTAs repeat it; they never introduce a second action.
 
 ## Output
 
@@ -44,7 +52,8 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
 - [ ] The `Primary keyword:` line is filled with this page's keyword from the map in `research/06-seo.md`, and no other page uses it.
 - [ ] Every `## ` heading from the template is present and no `{{...}}`, TODO or TBD remains.
 - [ ] The Section 2 decision names social proof or pain point with a reason tied to traffic temperature or offer complexity.
-- [ ] The section plan follows Hero, Section 2, Proof, Value props (4 to 8), How it works, FAQ and FUD reducers, Closer.
+- [ ] The section plan follows Hero, Section 2, Proof, Features (4 to 8, one row each), How it works, FAQ and FUD reducers, Closer.
+- [ ] `## Feature definitions` has one complete row per feature section, at least 4 (`lp done 7` checks the count).
 - [ ] Every section has exactly one job, written as a verb phrase.
 - [ ] Proof appears in 2 to 4 places and every proof item names a real row in `research/04-proof.md`; no carousel is planned.
 - [ ] Every offer facet is placed in the facet table, and the questions assigned to this page are mapped to sections.
@@ -56,6 +65,8 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
 - One section trying to show features, pricing and testimonials at once. One job per block.
 - A single testimonial block at the bottom. Proof should recur, starting near the top.
 - Value props that are features with no benefit ("API access") instead of benefit plus feature.
+- Value props that are benefits with no feature: "Save time" says nothing about what the product does. The feature definition must name the mechanism.
+- One "Value props" row covering three features. It produces one thin block in the wireframe and the other features vanish.
 - Planning a guarantee or a stat in the FAQ that the business does not actually offer or have.
 - Copying the home page structure to every page. Each page has its own traffic, keyword and Section 2 decision.
 

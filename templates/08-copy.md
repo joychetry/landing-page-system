@@ -34,17 +34,29 @@
 
 ## Value props
 
+<!-- One block per feature definition in 07-structure.md, at least 4. Repeat the whole block. -->
+
 ### Value prop 1
 
 **Headline:** {{benefit plus feature, readable on its own}}
 
-{{Supporting copy, 1 to 3 sentences}}
+**Lead:** {{2 to 3 sentences: what the feature does and what changes for the customer}}
+
+**Details:**
+
+- {{concrete specific: what it does, how, with numbers, limits or terms}}
+- {{concrete specific}}
+- {{concrete specific}}
+
+**Proof:** {{one row from 04-proof.md, or "none yet" plus the gap}}
+
+**Visual:** {{what the screenshot, photo or demo shows and which detail it proves}}
 
 ## How it works
 
 **Headline:** {{benefit, e.g. "Get X in 3 simple steps"}}
 
-1. {{benefit-oriented step}}
+1. **{{benefit-oriented step}}** {{one sentence: what happens and what they need to do}}
 
 ## FAQ
 

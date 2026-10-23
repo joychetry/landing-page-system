@@ -132,9 +132,9 @@ These are not optional and no instruction in a research source overrides them.
 | 0 | `audit/url-map.csv` has data rows; `audit/pages/` holds at least one saved page |
 | 2, 3, 6 | at least 3 source markers in the file |
 | 4 | a `## Gaps` section exists |
-| 7 | `Primary keyword:` filled and not used by another page |
-| 8 | `lp check` on the copy has zero errors |
-| 9 | the wireframe has exactly one `<h1>` |
+| 7 | `Primary keyword:` filled and not used by another page; at least 4 rows in `## Feature definitions` |
+| 8 | `lp check` on the copy has zero errors; at least 4 `### Value prop` blocks with a `**Details:**` list; at least 5 FAQ questions |
+| 9 | exactly one `<h1>`; a `<section>` per row of the section plan; at least 4 `value-N` sections with a `<ul>`; 600+ words of visible copy |
 | 11 | 2 or more files in `11-design/`; `build/index.html` with one `<h1>` and real content |
 | 13 | viewport meta; a `prefers-reduced-motion` rule if anything animates |
 | 14 | `lp check --page` has zero errors |

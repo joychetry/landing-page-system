@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Feature definitions drive steps 7 to 9. Step 7 adds a `## Feature definitions` table (what it
+  does, how it works, pain removed, benefit, proof, visual) with one plan row per feature, and
+  at least 4 features. Step 8 value props carry a lead, 3 to 5 concrete details, proof and visual;
+  how-it-works steps get a sentence each. The wireframe template ships 4 full feature sections,
+  3 steps, 3 proof cards and 5 FAQ items.
+- `lp done` enforces depth: step 7 needs 4+ feature definitions; step 8 needs 4+ value props with
+  a `**Details:**` list and 5+ FAQ questions; step 9 needs a `<section>` per plan row, 4+
+  `value-N` sections with a `<ul>`, and 600+ words of visible copy.
+- The sample `home` page is rebuilt at that depth.
+
 ## 1.0.0 (2026-10-17)
 
 First release.
