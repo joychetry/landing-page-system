@@ -17,7 +17,7 @@ Per page. Runs once for every page. Copy first, design second: steps 9 to 11 wra
 
 ## Do this
 
-1. Write the hero first and spend the most time on it. As an industry rule of thumb, around 60 percent of visitors never scroll past it, so it carries most of the page. Write 10 headline options, then pick one.
+1. Write the hero first and spend the most time on it. As an industry rule of thumb, around 60 percent of visitors never scroll past it, so it carries most of the page. Write 10 headline options, shortlist the best 3, and ask the human to pick one (a question or button prompt if your agent has one (Claude Code: `AskUserQuestion`), otherwise plain text). Give each option a one-line reason, put your recommendation first, and let them write their own. Use the one they choose; their wording wins over yours.
 2. Headline: the dream outcome, not who you are or what you do. Build it from three parts: the end result (quantified if you can prove it), a time period (only if true and typical), and the emotional payoff (how life feels after). Example shape: "Lose the first 10 pounds in 6 weeks and fit your clothes again". Readable in 5 seconds, 14 words or fewer, containing the primary keyword if it fits naturally.
 3. Subheadline: the how. Open with a pain hook or pattern interrupt taken from the language bank ("Tired of chasing invoices?"), then name the 3 to 4 biggest value props that deliver the headline. One or two sentences.
 4. Finish the hero stack. All of it must fit above the fold on a phone, so cut words until it does.

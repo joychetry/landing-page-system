@@ -25,7 +25,7 @@ PAGE_FILES = {
 }
 RESEARCH = {1: "01-goal-offer.md", 2: "02-customers.md", 3: "03-competitors.md",
             4: "04-proof.md", 5: "05-brand-story.md", 6: "06-seo.md"}
-GATE_AFTER = {9: "gate1", 11: "gate2", 14: "gate3"}
+GATE_AFTER = {7: "plan", 9: "gate1", 11: "gate2", 14: "gate3"}
 
 
 def load_module():
@@ -191,7 +191,12 @@ class TestFlow(LPTestCase):
     def test_gates_block_until_human_approves(self):
         ws = self.init()
         self.do_research(ws)
-        for n in (7, 8, 9):
+        self.do_page_step(ws, "home", 7)
+        it = self.lp_json("next", cwd=ws, code=3)
+        self.assertEqual((it["status"], it["gate"], it["after_step"]), ("gate", "plan", 7))
+        self.run_lp("start", 8, "--page", "home", cwd=ws, code=1)
+        self.run_lp("approve", "plan", "--page", "home", "--by", "Dana Owner", cwd=ws)
+        for n in (8, 9):
             self.do_page_step(ws, "home", n)
         p = self.run_lp("next", "--page", "home", cwd=ws, code=3)
         self.assertIn('lp approve gate1 --page home --by "<your name>"', p.stdout)
@@ -223,7 +228,7 @@ class TestFlow(LPTestCase):
         self.assertIn("lp page add", it["message"])
         st = self.lp_json("status", cwd=ws)
         self.assertTrue(all(v == "done" for v in st["pages"]["home"]["steps"].values()))
-        self.assertEqual(set(st["pages"]["home"]["approvals"]), {"gate1", "gate2", "gate3"})
+        self.assertEqual(set(st["pages"]["home"]["approvals"]), {"plan", "gate1", "gate2", "gate3"})
 
     def test_second_page_reuses_research_and_inherits_brand(self):
         ws = self.init()
@@ -235,6 +240,9 @@ class TestFlow(LPTestCase):
         it = self.lp_json("next", "--page", "pricing", cwd=ws)
         self.assertEqual((it["step"], it["page"]), (7, "pricing"))
         last = self.walk_page(ws, "pricing", 11, keyword="plumber prices harbor city", approve=False)
+        self.assertEqual(last["gate"], "plan")
+        self.run_lp("approve", "plan", "--page", "pricing", "--by", "Dana Owner", cwd=ws)
+        last = self.walk_page(ws, "pricing", 11, approve=False)
         self.assertEqual(last["gate"], "gate1")
         self.run_lp("approve", "gate1", "--page", "pricing", "--by", "Dana Owner", cwd=ws)
         self.assertEqual(self.lp_json("next", "--page", "pricing", cwd=ws)["step"], 11)  # step 10 inherited
@@ -253,6 +261,15 @@ class TestFlow(LPTestCase):
         self.walk_page(ws, "home", 8)
         self.run_lp("redo", 2, cwd=ws)
         self.assertEqual(self.lp_json("next", "--page", "home", cwd=ws)["step"], 2)
+
+    def test_gate1_approval_from_before_plan_gate_counts_as_plan(self):
+        ws = self.init()
+        self.do_research(ws)
+        self.walk_page(ws, "home", 9)
+        m = self.manifest(ws)
+        del m["pages"]["home"]["approvals"]["plan"]
+        (ws / "lp.json").write_text(json.dumps(m))
+        self.assertEqual(self.lp_json("next", cwd=ws)["step"], 10)
 
     def test_redo_page_step_revokes_later_gates(self):
         ws = self.init()
@@ -360,6 +377,7 @@ class TestDoneValidation(LPTestCase):
         self.assertIn("defines 2 features", self.run_lp("done", 7, "--page", "home", cwd=self.ws, code=1).stdout)
         self.do_page_step(self.ws, "home", 7)
         self.assertEqual(self.manifest(self.ws)["pages"]["home"]["primary_keyword"], "same day plumber harbor city")
+        self.run_lp("approve", "plan", "--page", "home", "--by", "Owner", cwd=self.ws)
         # step 8 runs the copy lint
         self.run_lp("start", 8, "--page", "home", cwd=self.ws)
         dst = self.ws / "pages/home/08-copy.md"
@@ -480,6 +498,7 @@ class TestCheck(LPTestCase):
         ws = self.init()
         self.do_research(ws)
         self.do_page_step(ws, "home", 7)
+        self.run_lp("approve", "plan", "--page", "home", "--by", "Owner", cwd=ws)
         self.run_lp("start", 8, "--page", "home", cwd=ws)
         self.put(SAMPLE / "pages/home/08-copy.md", ws / "pages/home/08-copy.md")
         self.run_lp("check", "--page", "home", cwd=ws)

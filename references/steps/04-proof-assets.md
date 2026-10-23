@@ -61,7 +61,10 @@ that is not real.
 11. Write `## Gaps` as owner tasks, not writing problems: the missing proof, why the page needs it,
     how to get it (for example: email the 20 most recent happy customers asking for a review on the
     main platform; request a 3-question testimonial with permission to publish; pull the real number
-    from the CRM; book a 20-minute case study interview), who does it, and by when.
+    from the CRM; book a 20-minute case study interview), who does it, and by when. Then ask the
+    owner to decide each gap that affects the hero or a main objection (a question or button prompt if your agent has one (Claude Code: `AskUserQuestion`), otherwise plain text):
+    "I will get it by <date>" or "Ship without it". Write their answer in the Who and By when
+    columns ("ship without" if they decline); the page is then planned around it in step 7.
 12. When finished, run `lp done 4`, fix whatever it reports, then run `lp next`.
 
 ## Output

@@ -1,6 +1,6 @@
 ---
 name: landing-page-system
-description: Use when the user wants to research, write, design, ship or improve a landing page, add another page for the same product, or redesign an existing site for conversions and SEO. Runs a 16-step method (goal and offer, customers, competitors, proof, brand story, SEO, structure, copy, wireframe, brand, design, visuals, polish, checks, ship, measure) plus a step 0 audit for redesigns, with three human approval gates. Drive it with the bundled CLI. `lp init PRODUCT` (add `--mode redesign --url URL` for an existing site) creates a workspace. `lp next --json` says what to do next, which guide to read and which files to write. `lp start N` copies the template, `lp done N` validates the work, `lp check` lints copy and HTML, `lp page add SLUG` adds a page, `lp status` and `lp stale` show progress. At each gate, stop and ask the human to Approve or Request changes; run `lp approve` only after they choose Approve. Never invent testimonials, numbers, logos or quotes.
+description: Use when the user wants to research, write, design, ship or improve a landing page, add another page for the same product, or redesign an existing site for conversions and SEO. Runs a 16-step method (goal and offer, customers, competitors, proof, brand story, SEO, structure, copy, wireframe, brand, design, visuals, polish, checks, ship, measure) plus a step 0 audit for redesigns, with four human approval gates and decision questions at key choices. Drive it with the bundled CLI. `lp init PRODUCT` (add `--mode redesign --url URL` for an existing site) creates a workspace. `lp next --json` says what to do next, which guide to read and which files to write. `lp start N` copies the template, `lp done N` validates the work, `lp check` lints copy and HTML, `lp page add SLUG` adds a page, `lp status` and `lp stale` show progress. At each gate, stop and ask the human to Approve or Request changes; run `lp approve` only after they choose Approve. Never invent testimonials, numbers, logos or quotes.
 license: MIT
 compatibility: Any agent that can read and write files. The optional lp CLI needs Python 3.8+ (standard library only, no network access). Without Python, follow the guides and templates by hand and edit lp.json manually. Install folders are provided for .agents, Claude Code, Codex, Pi, OpenCode, Gemini CLI and Cursor.
 metadata:
@@ -10,7 +10,7 @@ metadata:
 # Landing page system
 
 A repeatable method for landing pages that convert: research the product once, then write,
-design, ship and measure each page, with a human approving the work at three gates. The same
+design, ship and measure each page, with a human approving the work at four gates. The same
 process every time. Copy first, design second. Every block on the page does one job.
 
 ## Where things are
@@ -73,6 +73,7 @@ comes before any page work. `lp next --page <slug> --force` skips ahead only if 
 
 | Gate | After | What the human reviews |
 |---|---|---|
+| plan | step 7 | a one-screen brief: the research summary (first page) and the page plan, before any copy |
 | gate1 | step 9 | the grayscale wireframe with real copy |
 | gate2 | step 11 | the final design of the built page |
 | gate3 | step 14, before step 15 | the finished, checked page, before anything is deployed |
@@ -97,6 +98,22 @@ When `lp next` reports a gate (status `gate`, exit code 3):
 
 Reopening a page step with `lp redo N --page <slug>` revokes the gates that came after it, so the
 human approves the changed work again.
+
+## Decision questions
+
+Some choices belong to the human but are not gates: the CLI does not block on them, the guides
+tell you to ask. Ask each one with your question prompt (Claude Code: `AskUserQuestion`, 2 to 4
+options, your recommendation first with a one-line reason), otherwise in plain text. Use their
+answer; never pick for them.
+
+| Step | Question |
+|---|---|
+| 1 | Which one conversion action the page asks for |
+| 4 | For each gap that hurts the hero or a main objection: get it by a date, or ship without it |
+| 8 | Which of your 3 shortlisted hero headlines to use (or their own) |
+| 10 | Which of 2 looks (palette with contrast ratios, type pair) the brand uses; in redesign mode, confirm the extracted brand |
+| 11 | Which hero direction to build |
+| 16 | Which of the top 3 ICE hypotheses to test next |
 
 ## Honesty rules
 
@@ -153,7 +170,7 @@ list in each guide is the real bar; check every item yourself before running `lp
 | `lp start N [--page P]` | mark in progress, copy the template |
 | `lp done N [--page P] [--force]` | validate outputs, mark done |
 | `lp redo N [--page P]` | reopen a step |
-| `lp approve gate1\|gate2\|gate3 --page P --by NAME [--note]` | record approval, only after the human chose Approve |
+| `lp approve plan\|gate1\|gate2\|gate3 --page P --by NAME [--note]` | record approval, only after the human chose Approve |
 | `lp page add <slug> [--keyword K] [--url URL]`, `lp page list` | manage pages |
 | `lp check [--page P] [FILE...]` | copy and HTML lint |
 | `lp stale` | research past its verified date |
@@ -181,7 +198,7 @@ The method works without the CLI. Everything the CLI does is plain files.
   "research": {"0": {"status": "skipped", "done_at": null, "outputs": []},
                "1": {"status": "done", "done_at": "2026-01-31", "outputs": ["research/01-goal-offer.md"]}},
   "brand": {"status": "todo", "done_at": null, "outputs": ["brand/brand.md", "brand/tokens.css"]},
-  "gates": {"gate1": {"after_step": 9}, "gate2": {"after_step": 11}, "gate3": {"after_step": 14}},
+  "gates": {"plan": {"after_step": 7}, "gate1": {"after_step": 9}, "gate2": {"after_step": 11}, "gate3": {"after_step": 14}},
   "pages": {"home": {"created": "2026-01-31", "primary_keyword": null, "url": null, "start_step": 7,
                      "steps": {"7": {"status": "todo", "done_at": null, "outputs": []}},
                      "approvals": {}}},

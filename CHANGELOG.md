@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+### Added
+
+- A `plan` gate after step 7. Before any copy is written, the human approves a one-screen brief:
+  the research summary on the first page (conversion action, dream outcome, segment and pain,
+  one-liner, proof gaps), then the page plan (keyword, Section 2 decision, section order,
+  features). `lp next` stops there; `lp approve plan --page P --by NAME` records it. Pages whose
+  gate1 was approved before this gate existed count as plan-approved.
+- Decision questions in the guides, asked with the agent's question prompt and not enforced by
+  the CLI: the conversion action (step 1), each proof gap (step 4), the headline from a shortlist
+  of 3 (step 8), the brand look from 2 options (step 10), the hero direction (step 11) and the
+  next test from the top 3 by ICE (step 16).
+
 ### Changed
 
 - Feature definitions drive steps 7 to 9. Step 7 adds a `## Feature definitions` table (what it

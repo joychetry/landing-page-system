@@ -42,10 +42,14 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
 9. Place the offer facets. Every facet from `research/01-goal-offer.md` lands in a section and a form: headline, proof badge, value prop, how-it-works step or FAQ answer. Facets that reduce risk (trial, guarantee) belong near CTAs.
 10. Map the questions from `research/06-seo.md` assigned to this page to the section that answers them, usually the FAQ. Put secondary keywords where they fit naturally: a value prop headline, a how-it-works step, an FAQ question.
 11. Use the same CTA action in the hero and the closer. Mid-page CTAs repeat it; they never introduce a second action.
+12. Run `lp done 7 --page <page>` and fix what it reports. Then STOP: this is the plan gate, the first time the human sees the direction before any copy is written.
+    - Show a one-screen brief. On the first page, open with the research summary: the one conversion action, the dream outcome, the primary segment and their top pain (in their words), the one-liner from `research/05-brand-story.md`, and the proof gaps that weaken the hero. Then the page plan: primary keyword, traffic temperature, the Section 2 decision and its reason, the section order with each section's one job, and the feature list (headline idea and benefit per feature).
+    - Ask them to choose Approve or Request changes (a question or button prompt if your agent has one (Claude Code: `AskUserQuestion`), otherwise plain text). Only after they choose Approve, run `lp approve plan --page <page> --by "<their name>"`. Never approve without their answer.
+    - If they ask for changes to the research (offer, audience, story), reopen that step with `lp redo N`; changes to the plan go into `07-structure.md`. Then ask again.
 
 ## Output
 
-`pages/<page>/07-structure.md`, from template: 07-structure.md. Run `lp start 7 --page <page>` to copy the template into place (it never overwrites). When finished run `lp done 7 --page <page>`, fix whatever it reports, then `lp next`.
+`pages/<page>/07-structure.md`, from template: 07-structure.md. Run `lp start 7 --page <page>` to copy the template into place (it never overwrites). When finished run `lp done 7 --page <page>`, fix whatever it reports, hold the plan gate (step 12), then `lp next`.
 
 ## Done when
 
@@ -58,6 +62,7 @@ Per page. Runs once for every page (home first, then each page added with `lp pa
 - [ ] Proof appears in 2 to 4 places and every proof item names a real row in `research/04-proof.md`; no carousel is planned.
 - [ ] Every offer facet is placed in the facet table, and the questions assigned to this page are mapped to sections.
 - [ ] The hero and closer share one primary CTA action.
+- [ ] The agent stopped, showed the brief, asked the human to Approve or Request changes, and ran `lp approve plan` only after they chose Approve.
 
 ## Common mistakes
 

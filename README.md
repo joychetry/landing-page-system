@@ -2,7 +2,7 @@
 
 **A research-first method for landing pages that any coding agent can follow, with a tiny CLI that keeps it honest.**
 
-Point Claude Code, Codex, Gemini CLI, Cursor, Pi, OpenCode or Aider at a product and it works through 16 steps: research the buyer and the market, write the page in the customer's own words, design it, ship it with SEO and analytics, then measure and improve. It stops at three points and waits for a human to approve the work.
+Point Claude Code, Codex, Gemini CLI, Cursor, Pi, OpenCode or Aider at a product and it works through 16 steps: research the buyer and the market, write the page in the customer's own words, design it, ship it with SEO and analytics, then measure and improve. It stops at four points and waits for a human to approve the work, and asks the human to make the key choices along the way: the conversion action, the headline, the brand look, the hero direction.
 
 Research is done once per product. Every page after the first starts at the writing step and reuses it. The same workflow also redesigns an existing site, starting from an audit of what is live and what already ranks.
 
@@ -15,7 +15,7 @@ lp next                     # tells you (or your agent) exactly what to do next
 - **Works in any agent.** Follows the open [Agent Skills](https://agentskills.io) format, and every workspace also gets an `AGENTS.md`, `CLAUDE.md` and `GEMINI.md`, so agents without skill support still know the method.
 - **No dependencies.** The CLI is one Python 3.8+ file using only the standard library, with no network calls. Workspaces are plain Markdown, HTML, CSS and JSON.
 - **Portable workspaces.** Each workspace carries its own copy of the CLI, guides and templates. Move it, commit it, open it on another machine: it still works, with or without the skill installed.
-- **Human gates the CLI enforces.** It will not move past the wireframe, the final design or the deploy until a person records an approval.
+- **Human gates the CLI enforces.** It will not move past the page plan, the wireframe, the final design or the deploy until a person records an approval.
 - **No invented proof.** Testimonials, numbers, logos and quotes need a source. Missing proof is written down as a gap, never filled in.
 
 ---
@@ -58,6 +58,7 @@ Good landing pages are built in a fixed order: research, then copy, then design.
 | | 5 | Brand story | Product, once | `research/05-brand-story.md` |
 | | 6 | SEO research | Product, once | `research/06-seo.md` |
 | **Write** | 7 | Page structure | Per page | `pages/<page>/07-structure.md` |
+| | | **Plan gate: a human approves the research summary and page plan** | | |
 | | 8 | Page copy | Per page | `pages/<page>/08-copy.md` |
 | **Design** | 9 | Wireframe | Per page | `pages/<page>/09-wireframe.html` |
 | | | **Gate 1: a human approves the wireframe** | | |
@@ -176,10 +177,11 @@ Run:        lp start 1, do the work, then lp done 1
 
 ## Human gates
 
-Three points need a person to look at the work before it continues:
+Four points need a person to look at the work before it continues:
 
 | Gate | After | You're approving |
 |---|---|---|
+| `plan` | Step 7 | A one-screen brief: the offer, audience and story (first page), then the page's keyword, section order and features, before any copy is written |
 | `gate1` | Step 9 | The wireframe: structure, copy and section order, before any visual polish |
 | `gate2` | Step 11 | The final design |
 | `gate3` | Step 14 | Shipping the page to production |
@@ -189,6 +191,8 @@ At each gate your agent shows you the work and asks you to choose **Approve** or
 ```sh
 lp approve gate1 --page home --by "Your Name" --note "Swap sections 3 and 4 first"
 ```
+
+Between gates, the agent also asks you to make the choices that are yours: the conversion action (step 1), what to do about each proof gap (step 4), the headline from a shortlist of 3 (step 8), the brand look (step 10), the hero direction (step 11) and the next test (step 16). These aren't enforced by the CLI.
 
 Until a gate is approved, the CLI won't start the next step, even with `--force`. Reopening an earlier step with `lp redo` revokes the gates that come after it.
 
@@ -237,7 +241,7 @@ Every command accepts `--json` (machine-readable output) and `--help`.
 | `lp start N [--page P]` | Mark a step in progress and copy its template. Never overwrites an existing file. |
 | `lp done N [--page P] [--force]` | Validate the step's output and mark it done, or list what's missing. `--force` skips validation, never a gate. |
 | `lp redo N [--page P]` | Reopen a step. For page steps, revokes the gates after it. |
-| `lp approve gate1\|gate2\|gate3 --page P --by NAME [--note TEXT]` | Record a human approval (agents run it only after you choose Approve). |
+| `lp approve plan\|gate1\|gate2\|gate3 --page P --by NAME [--note TEXT]` | Record a human approval (agents run it only after you choose Approve). |
 | `lp page add <slug> [--keyword K] [--url URL]` | Add a page starting at step 7. Refuses a keyword another page owns. |
 | `lp page list` | Pages, their keywords and their next step. |
 | `lp check [--page P] [FILE...]` | Lint copy and HTML, and check keyword overlap across pages. |
