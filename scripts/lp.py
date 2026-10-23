@@ -632,7 +632,7 @@ def validate(ws, m, step, page):
                 if len(sections) < want:
                     probs.append("%s has %d <section>s but 07-structure.md plans %d; build every section"
                                  % (rel, len(sections), want))
-                feats = [body for attrs, body in sections if re.search(r"\bid=[\"']value-", attrs)]
+                feats = [body for attrs, body in sections if re.search(r"(?:^|\s)id=[\"']value-", attrs)]
                 if len(feats) < MIN_FEATURES:
                     probs.append("%s has %d feature sections (id=\"value-N\"); need at least %d"
                                  % (rel, len(feats), MIN_FEATURES))

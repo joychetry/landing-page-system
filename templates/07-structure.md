@@ -40,6 +40,9 @@ Why: {{warm or hot traffic with a simple offer gets proof first; cold traffic or
 | # | Feature | What it does (input, action, result) | How it works (mechanism, 2 to 4 specifics) | Pain it removes (02-customers.md) | Benefit (the so-what) | Proof or hard specific (04-proof.md) | Visual that demonstrates it |
 |---|---|---|---|---|---|---|---|
 | F1 | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} |
+| F2 | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} |
+| F3 | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} |
+| F4 | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} | {{...}} |
 
 ## Facet placement
 

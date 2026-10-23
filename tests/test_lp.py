@@ -514,7 +514,7 @@ class TestPortableAndJSON(LPTestCase):
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": str(self.home)}
         it = json.loads(self.run_lp("next", "--json", cwd=moved, script=vend, env=env).stdout)
         self.assertEqual(it["step"], 2)
-        self.assertEqual(it["guide"]["path"], str(moved / ".lp/guide/steps/02-customer-research.md"))
+        self.assertEqual(it["guide"]["path"], str(moved.resolve() / ".lp/guide/steps/02-customer-research.md"))
         self.run_lp("start", 2, cwd=moved / "research", script=vend, env=env)  # finds lp.json walking up
         self.assertTrue((moved / "research/02-customers.md").is_file())
         self.run_lp("done", 2, cwd=moved, script=vend, env=env, code=1)
