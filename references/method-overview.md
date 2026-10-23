@@ -49,7 +49,7 @@ Sixteen steps (plus step 0 for redesigns) that take a product from "we need a pa
  +-------------------------------------------------------------+
 ```
 
-The agent never approves a gate. At each gate it stops, shows the human the work, and asks them to run `lp approve gateN --page <page> --by "<their name>"`. `lp next` will not move past an unapproved gate.
+The agent never approves a gate on its own. At each gate it stops, shows the human the work, and asks them to choose Approve or Request changes (a button prompt where the agent has one). Only after they choose Approve does it run `lp approve gateN --page <page> --by "<their name>"` for them. `lp next` will not move past an unapproved gate.
 
 ## Step table
 

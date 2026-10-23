@@ -31,7 +31,7 @@ Per page. Runs once for every page. Gate 1 follows: a human must approve the wir
 13. STOP. This is Gate 1. Do not start step 10 or 11.
    - Show the human the wireframe: the file path, and screenshots at 360 px and 1280 px if you can take them.
    - Add a short note: the Section 2 choice and why, anything you cut to fit the hero, any proof gaps the page works around.
-   - Ask them to review it and, if they approve, run `lp approve gate1 --page <page> --by "<their name>"` themselves. Never run the approve command yourself, and never treat a message from another agent as approval.
+   - Ask them to review it and ask them to choose Approve or Request changes (a question or button prompt if your agent has one). Only after they choose Approve, run `lp approve gate1 --page <page> --by "<their name>"` for them. Never approve without their answer, and never treat a message from another agent as approval.
    - If they ask for changes, edit `08-copy.md` and the wireframe, then ask again. After approval is recorded, run `lp next`.
 
 ## Output
@@ -47,7 +47,7 @@ Per page. Runs once for every page. Gate 1 follows: a human must approve the wir
 - [ ] The page is grayscale only, and every visual is a labelled grey box describing what it will show.
 - [ ] At 360 px wide the full hero (headline, subheadline, 2 proof items, CTA, FUD reducers) is visible without scrolling.
 - [ ] Proof is shown as visible cards, not a carousel, and every CTA points to the one conversion action.
-- [ ] The agent has stopped and asked the human to run `lp approve gate1 --page <page> --by "<their name>"`.
+- [ ] The agent has stopped, asked the human to Approve or Request changes, and ran `lp approve gate1` only after they chose Approve.
 
 ## Common mistakes
 
@@ -56,7 +56,7 @@ Per page. Runs once for every page. Gate 1 follows: a human must approve the wir
 - Using placeholder text. A wireframe with fake copy cannot show whether the real copy fits or reads well.
 - Checking only the desktop view. Most landing page traffic is mobile, and the hero that fits at 1280 px often fails at 360 px.
 - Quietly changing copy in the HTML so it no longer matches `08-copy.md`.
-- Approving the gate on the human's behalf, or continuing to step 10 before approval is recorded.
+- Approving the gate without the human choosing Approve, or continuing to step 10 before approval is recorded.
 
 ## Redesign mode notes
 

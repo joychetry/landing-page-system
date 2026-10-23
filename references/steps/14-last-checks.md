@@ -26,9 +26,9 @@ Per page. Runs once for each page, after step 13. Gate 3 follows this step and m
 8. Walk the hero checklist in references/checklists/hero.md against the built hero, and skim the other checklists for anything steps 12 and 13 missed.
 9. Run a five-second test with a real person who has not seen the page (not the owner, not you). Show the hero on a phone for five seconds, hide it, and ask: what is this offering, who is it for, and what would you do next? If they cannot answer the first and last questions, fix the headline, subhead or CTA and test again with someone new. An agent cannot do this step on its own; ask the human to run it and report the answers.
 10. Fill pages/<page>/14-checks.md, including notes for Gate 3: open proof gaps, known limits, decisions taken. Then run `lp done 14 --page <page>` and fix whatever it reports.
-11. GATE 3. STOP here. Show the human the built page (a local preview or a staging URL), the 14-checks.md summary and any open warnings. Ask them to review it and, if they approve, run `lp approve gate3 --page <page> --by "<their name>"`. The agent never runs approve itself and never deploys anything before this approval exists. After the human approves, run `lp next`. A message to the human can be as short as:
+11. GATE 3. STOP here. Show the human the built page (a local preview or a staging URL), the 14-checks.md summary and any open warnings. Ask them to review it and ask them to choose Approve or Request changes (a question or button prompt if your agent has one). Only after they choose Approve, run `lp approve gate3 --page <page> --by "<their name>"` for them. Never approve without their answer, and never deploy anything before this approval exists. After the human approves, run `lp next`. A message to the human can be as short as:
 
-   > The <page> page is ready for review at <preview link>. `lp check` shows 0 errors and <n> warnings (reasons in 14-checks.md). Open items: <gaps>. If you approve, please run: `lp approve gate3 --page <page> --by "<your name>"`. I will not deploy until you do.
+   > The <page> page is ready for review at <preview link>. `lp check` shows 0 errors and <n> warnings (reasons in 14-checks.md). Open items: <gaps>. Approve, or tell me what to change? I will not deploy until you approve.
 
 
 ## Output
@@ -44,7 +44,7 @@ Per page. Runs once for each page, after step 13. Gate 3 follows this step and m
 - [ ] Every link and button was clicked at desktop and mobile, and a test form submission arrived
 - [ ] Every number, testimonial, logo and guarantee traces to a row in research/04-proof.md; anything untraceable was removed
 - [ ] A real person passed the five-second test: they named the offer and the next step
-- [ ] The agent stopped and asked the human to approve Gate 3; it did not approve or deploy itself
+- [ ] The agent stopped and asked the human to approve Gate 3; it recorded approval only after they chose Approve, and did not deploy before
 
 ## Common mistakes
 

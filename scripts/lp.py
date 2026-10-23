@@ -439,9 +439,11 @@ def next_item(ws, m, page=None, force=False):
         return {
             "status": "gate", "gate": g["gate"], "page": g["page"], "after_step": after, "what": what,
             "approve_command": approve_cmd(g["gate"], g["page"]), "blocked": blocked,
-            "message": ("STOP. %s (%s) for page %s needs a human. Show them the work and ask them to run: %s. "
-                        "Agents never approve gates themselves." % (g["gate"], what, g["page"],
-                                                                     approve_cmd(g["gate"], g["page"]))),
+            "message": ("STOP. %s (%s) for page %s needs a human. Show them the work and ask them to choose "
+                        "Approve or Request changes (use your agent's question or button prompt if it has one). "
+                        "Only after they choose Approve in this conversation, run: %s. "
+                        "Never approve without their answer." % (g["gate"], what, g["page"],
+                                                                  approve_cmd(g["gate"], g["page"]))),
         }
     if not m["pages"]:
         return {"status": "done", "page": None, "message": "Research is done and there are no pages. "
@@ -1059,7 +1061,7 @@ def cmd_start(args):
                       "Use `lp redo 10` only if the brand itself changes." % page)
     miss = gates_missing(m, step, page)
     if miss:
-        raise LPError("step %d needs %s approved for page %s first. A human runs: %s"
+        raise LPError("step %d needs %s approved for page %s first. Ask the human to approve it; once they do, run: %s"
                       % (step, ", ".join(miss), page, approve_cmd(miss[0], page or "<page>")), 1)
     lay = ws_layout(ws)
     copied, kept = [], []
@@ -1100,7 +1102,7 @@ def cmd_done(args):
         raise LPError("step 0 (audit) only applies to redesign mode")
     miss = gates_missing(m, step, page)
     if miss:  # --force never bypasses a human gate
-        raise LPError("step %d needs %s approved for page %s first. A human runs: %s"
+        raise LPError("step %d needs %s approved for page %s first. Ask the human to approve it; once they do, run: %s"
                       % (step, ", ".join(miss), page, approve_cmd(miss[0], page or "<page>")), 1)
     probs = [] if args.force else validate(ws, m, step, page)
     where = " for page %s" % page if page else ""
@@ -1359,7 +1361,7 @@ def build_parser():
             p.add_argument("--force", action="store_true", help="skip output validation (never skips gates)")
         p.set_defaults(func=func)
 
-    p = sub.add_parser("approve", parents=[common, pagearg], help="record a HUMAN gate approval")
+    p = sub.add_parser("approve", parents=[common, pagearg], help="record a human gate approval (agents: only after the human chose Approve)")
     p.add_argument("gate", choices=list(GATES))
     p.add_argument("--by", required=True, help="name of the human approving")
     p.add_argument("--note", help="optional note")
