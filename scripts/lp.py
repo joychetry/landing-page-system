@@ -490,6 +490,16 @@ def md_headings(text):
     return [l.strip() for l in text.splitlines() if l.startswith("## ")]
 
 
+def table_rows(text, heading):
+    """Data rows of the first markdown table under `## heading`."""
+    mt = re.search(r"^## %s\s*$(.*?)(?=^## |\Z)" % re.escape(heading), strip_comments(text), re.M | re.S)
+    rows = [l for l in (mt.group(1) if mt else "").splitlines() if l.strip().startswith("|")]
+    return [r for r in rows[2:] if not re.fullmatch(r"[|\s:-]*", r)]
+
+
+MIN_FEATURES, MIN_FAQ, MIN_WIREFRAME_WORDS = 4, 5, 600
+
+
 def frontmatter_date(text):
     m = re.match(r"\ufeff?---\s*\n(.*?)\n---", text, re.S)
     if not m:
@@ -584,16 +594,52 @@ def validate(ws, m, step, page):
             if clash:
                 probs.append("primary keyword %r is already used by page %s (keyword cannibalization)"
                              % (kw, ", ".join(clash)))
+        path = ws / (P + "07-structure.md").format(page=page)
+        if path.is_file():
+            n = len(table_rows(read(path), "Feature definitions"))
+            if n < MIN_FEATURES:
+                probs.append("07-structure.md defines %d features; need at least %d rows in `## Feature definitions`"
+                             % (n, MIN_FEATURES))
     if step == 8 and (ws / (P + "08-copy.md").format(page=page)).is_file():
         f = [x for x in check_file(ws / (P + "08-copy.md").format(page=page), m["copy_rules"], ws)
              if x["severity"] == "error"]
         probs += ["lp check: %s: %s" % (x["rule"], x["message"]) for x in f]
+        text = strip_comments(read(ws / (P + "08-copy.md").format(page=page)))
+        blocks = re.split(r"^### ", text, flags=re.M)[1:]
+        props = [b for b in blocks if re.match(r"Value prop", b)]
+        thin = [b.splitlines()[0].strip() for b in props if not re.search(r"^\*\*Details:\*\*\s*\n(\s*\n)?\s*- ", b, re.M)]
+        if len(props) < MIN_FEATURES:
+            probs.append("08-copy.md has %d value prop blocks; need at least %d, one per feature definition"
+                         % (len(props), MIN_FEATURES))
+        if thin:
+            probs.append("08-copy.md value props without a `**Details:**` bullet list: %s" % ", ".join(thin))
+        faq = len(re.findall(r"^\*\*Q:\*\*", text, re.M))
+        if faq < MIN_FAQ:
+            probs.append("08-copy.md has %d FAQ questions; need at least %d" % (faq, MIN_FAQ))
     if step in (9, 11):
         rel = (P + ("09-wireframe.html" if step == 9 else "build/index.html")).format(page=page)
         if (ws / rel).is_file():
             hp = parse_html(read(ws / rel))
             if hp.h1 != 1:
                 probs.append("%s must have exactly one <h1> (found %d)" % (rel, hp.h1))
+            if step == 9:
+                html = read(ws / rel)
+                sections = re.findall(r"<section\b([^>]*)>(.*?)</section>", html, re.S | re.I)
+                plan = ws / (P + "07-structure.md").format(page=page)
+                want = len(table_rows(read(plan), "Section plan")) if plan.is_file() else 0
+                if len(sections) < want:
+                    probs.append("%s has %d <section>s but 07-structure.md plans %d; build every section"
+                                 % (rel, len(sections), want))
+                feats = [body for attrs, body in sections if re.search(r"\bid=[\"']value-", attrs)]
+                if len(feats) < MIN_FEATURES:
+                    probs.append("%s has %d feature sections (id=\"value-N\"); need at least %d"
+                                 % (rel, len(feats), MIN_FEATURES))
+                if any("<ul" not in body for body in feats):
+                    probs.append("%s: every value-N section needs its details as a <ul>" % rel)
+                words = len(" ".join(hp.text).split())
+                if words < MIN_WIREFRAME_WORDS:
+                    probs.append("%s has %d words of visible copy; need at least %d. Carry all of 08-copy.md"
+                                 % (rel, words, MIN_WIREFRAME_WORDS))
             if step == 11:
                 probs += file_problems(ws, rel, None)
                 words = len(" ".join(hp.text).split())

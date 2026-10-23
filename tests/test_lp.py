@@ -352,6 +352,12 @@ class TestDoneValidation(LPTestCase):
 
     def test_page_specific_rules(self):
         self.do_research(self.ws)
+        # step 7 needs at least 4 feature definitions
+        self.run_lp("start", 7, "--page", "home", cwd=self.ws)
+        dst = self.ws / "pages/home/07-structure.md"
+        self.put(SAMPLE / "pages/home/07-structure.md", dst)
+        dst.write_text(re.sub(r"^\| F[34] \|.*\n", "", dst.read_text(), flags=re.M))
+        self.assertIn("defines 2 features", self.run_lp("done", 7, "--page", "home", cwd=self.ws, code=1).stdout)
         self.do_page_step(self.ws, "home", 7)
         self.assertEqual(self.manifest(self.ws)["pages"]["home"]["primary_keyword"], "same day plumber harbor city")
         # step 8 runs the copy lint
@@ -360,6 +366,13 @@ class TestDoneValidation(LPTestCase):
         self.put(SAMPLE / "pages/home/08-copy.md", dst)
         dst.write_text(dst.read_text().replace("Book online in two minutes.", "Unlock seamless booking."))
         self.assertIn("banned-phrase", self.run_lp("done", 8, "--page", "home", cwd=self.ws, code=1).stdout)
+        # value props need details, and there must be enough of them and enough FAQ
+        dst.write_text(dst.read_text().split("### Value prop 4")[0].replace("**Details:**", "", 1)
+                       + "## How it works\n\n" + dst.read_text().split("## How it works")[1].split("**Q:** Can")[0]
+                       + "## Closer" + dst.read_text().split("## Closer")[1])
+        out = self.run_lp("done", 8, "--page", "home", cwd=self.ws, code=1).stdout
+        for msg in ("3 value prop blocks", "without a `**Details:**`", "2 FAQ questions"):
+            self.assertIn(msg, out)
         self.put(SAMPLE / "pages/home/08-copy.md", dst)
         self.run_lp("done", 8, "--page", "home", cwd=self.ws)
         # step 9 needs exactly one h1
@@ -368,6 +381,12 @@ class TestDoneValidation(LPTestCase):
         self.put(SAMPLE / "pages/home/09-wireframe.html", dst)
         dst.write_text(dst.read_text().replace("<h2>", "<h1>").replace("</h2>", "</h1>"))
         self.assertIn("exactly one <h1>", self.run_lp("done", 9, "--page", "home", cwd=self.ws, code=1).stdout)
+        # a short wireframe that drops feature sections fails
+        good = (SAMPLE / "pages/home/09-wireframe.html").read_text()
+        dst.write_text(re.sub(r'<section id="value-[234]">.*?</section>\n', "", good, flags=re.S))
+        out = self.run_lp("done", 9, "--page", "home", cwd=self.ws, code=1).stdout
+        for msg in ("7 <section>s but 07-structure.md plans 10", "1 feature sections", "words of visible copy"):
+            self.assertIn(msg, out)
         self.put(SAMPLE / "pages/home/09-wireframe.html", dst)
         self.run_lp("done", 9, "--page", "home", cwd=self.ws)
         self.run_lp("approve", "gate1", "--page", "home", "--by", "Owner", cwd=self.ws)

@@ -13,6 +13,9 @@
   .box { background: #e6e6e6; border: 1px solid #ccc; min-height: 160px; padding: 16px; color: #555; }
   .btn { display: inline-block; padding: 14px 22px; min-height: 44px; background: #444; color: #fff; text-decoration: none; }
   .proof { background: #f3f3f3; padding: 12px; }
+  .grid { display: grid; gap: 24px; }
+  @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } .flip { order: 2; } }
+  .details { padding-left: 20px; }
 </style>
 </head>
 <body>
@@ -43,30 +46,73 @@
   </div>
 </section>
 <section id="value-1">
-  <div class="wrap">
-    <div class="label">4. Value props: fixed price, arrival text, warranty</div>
-    <h2>Know the price before anyone touches a pipe</h2>
-    <p>Your plumber writes a fixed price on a quote sheet and waits for your yes.</p>
-    <div class="box">Photo: a filled quote sheet, customer details blurred</div>
+  <div class="wrap grid grid-2">
+    <div>
+      <div class="label">4. Feature 1: show the price is agreed before any work</div>
+      <h2>Know the price before anyone touches a pipe</h2>
+      <p>Your plumber looks at the problem first, then writes a fixed price on a quote sheet. Nothing starts until you say yes, so the number on the sheet is the number you pay.</p>
+      <ul class="details"><li>The price is written down before any work starts, not given as a range.</li><li>You decide: say yes and the repair starts, say no and you only pay the call-out fee.</li><li>The 89 USD call-out fee comes off the bill when you go ahead with the repair.</li></ul>
+      <div class="proof">"He told me the price before he touched anything." Dana R., homeowner</div>
+    </div>
+    <div class="box">Photo of a filled quote sheet with customer details blurred, showing the written fixed price.</div>
+  </div>
+</section>
+<section id="value-2">
+  <div class="wrap grid grid-2">
+    <div class="flip">
+      <div class="label">5. Feature 2: show the plumber arrives ready</div>
+      <h2>Send a photo when you book, so the right part comes with the plumber</h2>
+      <p>Add a photo of the leak, the drip or the broken fitting in the booking form. Your plumber sees it before leaving, so the part you need is on the van when they arrive.</p>
+      <ul class="details"><li>The photo field is in the booking form and is optional.</li><li>Your plumber checks the photo before driving to you.</li><li>Vans carry the 300 parts used most often, so most jobs finish in one visit.</li></ul>
+      <div class="proof">92 percent of jobs finished in one visit, from 1,840 jobs in the last 12 months.</div>
+    </div>
+    <div class="box">The booking form on a phone with the photo field filled in.</div>
+  </div>
+</section>
+<section id="value-3">
+  <div class="wrap grid grid-2">
+    <div>
+      <div class="label">6. Feature 3: show there is no waiting at home all day</div>
+      <h2>A text with your arrival window, so you can plan your day</h2>
+      <p>No more waiting in all day for a plumber who might not show. You get a time window by text and can get on with your day until then.</p>
+      <ul class="details"><li>The text arrives within 15 minutes of booking.</li><li>If the window changes, you get a new text straight away.</li><li>The text names the window, so you know when to be home.</li></ul>
+    </div>
+    <div class="box">A phone showing the arrival text with the time window.</div>
+  </div>
+</section>
+<section id="value-4">
+  <div class="wrap grid grid-2">
+    <div class="flip">
+      <div class="label">7. Feature 4: show a failed fix costs nothing</div>
+      <h2>Repairs backed for 12 months, so a failed fix costs you nothing</h2>
+      <p>Every repair comes with a 12-month labor warranty. If the same fault comes back within a year, we fix it again and the labor is free.</p>
+      <ul class="details"><li>Covers the labor on every repair we do.</li><li>Applies when the same fault returns within 12 months.</li><li>Written into our terms of service, so it is not a promise made at the door.</li></ul>
+      <div class="proof">12-month labor warranty, confirmed in the terms of service.</div>
+    </div>
+    <div class="box">The warranty line printed on a job receipt.</div>
   </div>
 </section>
 <section id="how-it-works">
   <div class="wrap">
-    <div class="label">5. How it works: make the path feel easy</div>
+    <div class="label">8. How it works: make the path feel easy</div>
     <h2>Fixed in three steps</h2>
-    <ol><li>Book online and add a photo of the problem.</li><li>Get a fixed price in writing.</li><li>Get it fixed, with 12 months of warranty.</li></ol>
+    <ol><li><strong>Book online and add a photo of the problem.</strong> It takes about two minutes, and you get your arrival text within 15 minutes.</li><li><strong>Get a fixed price in writing.</strong> Your plumber looks at the problem and writes the price before any work starts.</li><li><strong>Get it fixed, with 12 months of warranty.</strong> Most jobs finish in one visit, and the labor is covered if the same fault returns.</li></ol>
   </div>
 </section>
 <section id="faq">
   <div class="wrap">
-    <div class="label">6. FAQ and FUD reducers: remove the last doubts</div>
+    <div class="label">9. FAQ and FUD reducers: answer price, timing, trust and mess fears</div>
     <h2>Questions before you book</h2>
     <details><summary>Do you charge a call-out fee?</summary><p>Yes, 89 USD, and it comes off the bill if you go ahead with the repair.</p></details>
+    <details><summary>What if you are late?</summary><p>You get a text with your arrival window, and another one if it changes.</p></details>
+    <details><summary>Can a plumber come today?</summary><p>Yes, if you book before 2 pm, Monday to Saturday.</p></details>
+    <details><summary>Who will turn up at my door?</summary><p>A licensed Tidewater plumber. We do not use subcontractors.</p></details>
+    <details><summary>Will you leave a mess?</summary><p>No. Your plumber wears shoe covers and cleans up before leaving.</p></details>
   </div>
 </section>
 <section id="closer">
   <div class="wrap">
-    <div class="label">7. Closer: mini hero, final CTA</div>
+    <div class="label">10. Closer: mini hero, final CTA</div>
     <h2>Get your leak fixed today, at a price you agree to first</h2>
     <p>Book before 2 pm for a visit today, Monday to Saturday.</p>
     <div class="box">Form: name, phone, address, what is wrong, optional photo<br><a class="btn" href="#closer">Book a same-day visit</a></div>
