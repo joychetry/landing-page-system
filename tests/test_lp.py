@@ -565,7 +565,7 @@ class TestPortableAndJSON(LPTestCase):
         self.assertEqual(json.loads(self.run_lp("--json", "next", cwd=ws).stdout)["step"], 1)
 
     def test_help_and_version(self):
-        self.assertIn("1.0.0", self.run_lp("--version").stdout)
+        self.assertIn("1.1.0", self.run_lp("--version").stdout)
         for cmd in ([], ["init"], ["status"], ["next"], ["start"], ["done"], ["approve"], ["page"], ["page", "add"],
                     ["page", "list"], ["stale"], ["check"], ["redo"], ["sync-guide"], ["doctor"]):
             self.run_lp(*(cmd + ["--help"]))
@@ -573,7 +573,7 @@ class TestPortableAndJSON(LPTestCase):
     def test_importable_module(self):
         lp = load_module()
         self.assertEqual(lp.slugify("Acme Plumbing & Heating!"), "acme-plumbing-heating")
-        self.assertEqual(lp.__version__, "1.0.0")
+        self.assertEqual(lp.__version__, "1.1.0")
         self.assertEqual(sorted(lp.STEPS), list(range(17)))
         for n, s in lp.STEPS.items():
             self.assertTrue((ROOT / "references/steps" / s["guide"]).is_file(), s["guide"])

@@ -4,7 +4,7 @@ description: Use when the user wants to research, write, design, ship or improve
 license: MIT
 compatibility: Any agent that can read and write files. The optional lp CLI needs Python 3.8+ (standard library only, no network access). Without Python, follow the guides and templates by hand and edit lp.json manually. Install folders are provided for .agents, Claude Code, Codex, Pi, OpenCode, Gemini CLI and Cursor.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Landing page system
@@ -194,7 +194,7 @@ The method works without the CLI. Everything the CLI does is plain files.
 ```json
 {
   "schema": 1, "name": "Acme", "slug": "acme", "mode": "new", "url": null,
-  "created": "2026-01-31", "skill_version": "1.0.0", "stale_days": 90,
+  "created": "2026-01-31", "skill_version": "1.1.0", "stale_days": 90,
   "research": {"0": {"status": "skipped", "done_at": null, "outputs": []},
                "1": {"status": "done", "done_at": "2026-01-31", "outputs": ["research/01-goal-offer.md"]}},
   "brand": {"status": "todo", "done_at": null, "outputs": ["brand/brand.md", "brand/tokens.css"]},

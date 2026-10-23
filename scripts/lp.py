@@ -21,7 +21,7 @@ import tempfile
 from html.parser import HTMLParser
 from pathlib import Path
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 SCHEMA = 1
 MANIFEST = "lp.json"
 VENDOR = ".lp"
